@@ -1,3 +1,4 @@
+import os
 from tkinter import ttk, PhotoImage, Canvas
 
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
@@ -10,12 +11,23 @@ class EntryFrame(ttk.Frame):
     def __init__(self, parent):
         super().__init__()
 
-        canvas_image = PhotoImage(file=HOME_LOGO)
+        self.canvas_image = PhotoImage(file=HOME_LOGO)
         self.canvas = Canvas(bg='light blue', highlightthickness=0, width=720, height=480)
-        self.canvas.create_image(360, 240, image=canvas_image)
+        self.canvas.create_image(360, 240, image=self.canvas_image)
 
         self.password_entry: PlaceholderEntry = PlaceholderEntry(width=50, placeholder="Enter Password")
         self.confirm_password_entry: PlaceholderEntry = PlaceholderEntry(width=50, placeholder="Confirm Password")
 
-        self.login: ttk.Button = ttk.Button(text="Login", width=15)
+        self.login_button: ttk.Button = ttk.Button(text="Login", width=15)
         self.create_account_button: ttk.Button = ttk.Button(text="Create Account", width=15)
+
+        self.place_elements()
+
+    def place_elements(self) -> None:
+        if os.path.exists("../Data/Settings.json"):
+            self.canvas.place(relx=0.5, rely=0.45, anchor="center", relwidth=1, relheight=1)
+            self.password_entry.place(relx=0.5, rely=0.65, anchor="center")
+            self.login_button.place(relx=0.9, rely=0.65, anchor="center")
+
+        else:
+            pass
