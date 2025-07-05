@@ -27,3 +27,8 @@ class ParentWindow(tkinter.Tk):
         frame: ttk.Frame = new_frame(self.container, self)
 
         frame.pack(fill="both", expand=True)
+
+
+if __name__ == "__main__":
+    app: ParentWindow = ParentWindow()
+    app.mainloop()
