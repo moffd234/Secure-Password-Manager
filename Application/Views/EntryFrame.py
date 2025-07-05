@@ -2,12 +2,12 @@ from tkinter import ttk, PhotoImage, Canvas
 
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
 
-HOME_LOGO = './Assets/Home Logo.png'
+HOME_LOGO = '../Assets/Home Logo.png'
 
 
 class EntryFrame(ttk.Frame):
 
-    def __init__(self):
+    def __init__(self, parent):
         super().__init__()
 
         canvas_image = PhotoImage(file=HOME_LOGO)
