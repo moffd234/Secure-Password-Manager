@@ -1,6 +1,8 @@
 import tkinter
 from tkinter import ttk
 
+from Application.Views.EntryFrame import EntryFrame
+
 
 class ParentWindow(tkinter.Tk):
 
@@ -11,6 +13,7 @@ class ParentWindow(tkinter.Tk):
 
         self.container: ttk.Frame = ttk.Frame(self)
         self.container.pack(fill="both", expand=True)
+        self.render_frame(EntryFrame)
 
     def render_frame(self, new_frame) -> None:
         """
