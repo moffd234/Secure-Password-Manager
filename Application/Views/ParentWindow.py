@@ -10,6 +10,7 @@ class ParentWindow(tkinter.Tk):
         super().__init__()
         self.title("Password Manager!")
         self.geometry("720x480")
+        self.resizable(False, False)
 
         self.container: ttk.Frame = ttk.Frame(self)
         self.container.pack(fill="both", expand=True)
