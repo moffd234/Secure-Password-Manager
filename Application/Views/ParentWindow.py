@@ -25,7 +25,7 @@ class ParentWindow(tkinter.Tk):
         for frame in self.container.winfo_children():
             frame.destroy()
 
-        frame: ttk.Frame = new_frame(self.container, self)
+        frame: ttk.Frame = new_frame(self.container)
 
         frame.pack(fill="both", expand=True)
 
