@@ -1,6 +1,7 @@
 import os
 from tkinter import ttk, PhotoImage, Canvas
 
+from Application.Utils.HelperFunctions import is_password_valid
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
 
 HOME_LOGO = '../Assets/Home Logo.png'
@@ -34,3 +35,13 @@ class EntryFrame(ttk.Frame):
             self.password_entry.place(relx=0.5, rely=0.75, anchor="center")
             self.confirm_password_entry.place(relx=0.5, rely=0.8, anchor="center")
             self.create_account_button.place(relx=0.9, rely=0.8, anchor="center")
+
+    @staticmethod
+    def validate_passwords(password: str, conf_password: str) -> bool:
+        if password != conf_password:
+            return False
+
+        if not is_password_valid(password):
+            return False
+
+        return True
