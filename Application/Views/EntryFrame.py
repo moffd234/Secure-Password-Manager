@@ -11,8 +11,8 @@ class EntryFrame(ttk.Frame):
     def __init__(self, parent):
         super().__init__()
 
-        self.canvas_image = PhotoImage(file=HOME_LOGO)
-        self.canvas = Canvas(bg='light blue', highlightthickness=0, width=720, height=480)
+        self.canvas_image: PhotoImage = PhotoImage(file=HOME_LOGO)
+        self.canvas: Canvas = Canvas(bg='light blue', highlightthickness=0, width=720, height=480)
         self.canvas.create_image(360, 240, image=self.canvas_image)
 
         self.password_entry: PlaceholderEntry = PlaceholderEntry(width=50, placeholder="Enter Password")
