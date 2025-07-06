@@ -21,7 +21,8 @@ class EntryFrame(ttk.Frame):
         self.confirm_password_entry: PlaceholderEntry = PlaceholderEntry(width=50, placeholder="Confirm Password")
 
         self.login_button: ttk.Button = ttk.Button(text="Login", width=15)
-        self.create_account_button: ttk.Button = ttk.Button(text="Create Account", width=15)
+        self.create_account_button: ttk.Button = ttk.Button(text="Create Account", width=15,
+                                                            command=self.create_account)
 
         self.place_elements()
 
@@ -61,10 +62,11 @@ class EntryFrame(ttk.Frame):
 
     @staticmethod
     def create_settings(password: str) -> None:
-        with open(file="../Data/Settings.json", mode="w"):
+        with open(file="../Data/Settings.json", mode="w") as file:
             hashed_pass: str = hash_password(password)
 
             data: dict = {
                 "pwd": hashed_pass,
             }
-            json.dumps(data, indent=4)
+            json_str: str = json.dumps(data, indent=4)
+            file.write(json_str)
