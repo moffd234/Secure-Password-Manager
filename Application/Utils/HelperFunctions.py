@@ -1,5 +1,7 @@
 import re
 
+import bcrypt
+
 
 def is_password_valid(password: str) -> bool:
     """
@@ -15,3 +17,10 @@ def is_password_valid(password: str) -> bool:
     """
     pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
     return True if re.match(pattern, password) else False
+
+
+def hash_password(password: str) -> str:
+    encoded_bytes: bytes = password.encode('utf-8')
+    salt: bytes = bcrypt.gensalt()
+    hashed_password: bytes = bcrypt.hashpw(encoded_bytes, salt)
+    return hashed_password.decode('utf-8')
