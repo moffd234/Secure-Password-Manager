@@ -24,10 +24,13 @@ class EntryFrame(ttk.Frame):
         self.place_elements()
 
     def place_elements(self) -> None:
+        self.canvas.place(relx=0.5, rely=0.5, anchor="center", width=720, height=480)
+
         if os.path.exists("../Data/Settings.json"):
-            self.canvas.place(relx=0.5, rely=0.45, anchor="center", relwidth=1, relheight=1)
             self.password_entry.place(relx=0.5, rely=0.65, anchor="center")
             self.login_button.place(relx=0.9, rely=0.65, anchor="center")
 
         else:
-            pass
+            self.password_entry.place(relx=0.5, rely=0.75, anchor="center")
+            self.confirm_password_entry.place(relx=0.5, rely=0.8, anchor="center")
+            self.create_account_button.place(relx=0.9, rely=0.8, anchor="center")
