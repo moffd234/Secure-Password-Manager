@@ -1,7 +1,8 @@
+import json
 import os
 from tkinter import ttk, PhotoImage, Canvas
 
-from Application.Utils.HelperFunctions import is_password_valid
+from Application.Utils.HelperFunctions import is_password_valid, hash_password
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
 
 HOME_LOGO = '../Assets/Home Logo.png'
@@ -45,3 +46,14 @@ class EntryFrame(ttk.Frame):
             return False
 
         return True
+
+    @staticmethod
+    def create_settings(password: str) -> None:
+        with open(file="../Data/Settings.json", mode="w"):
+            hashed_pass: str = hash_password(password)
+
+            data: dict = {
+                "pwd": hashed_pass,
+            }
+            json.dumps(data, indent=4)
+            return None
