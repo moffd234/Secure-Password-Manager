@@ -29,7 +29,7 @@ class EntryFrame(ttk.Frame):
     def place_elements(self) -> None:
         self.canvas.place(relx=0.5, rely=0.5, anchor="center", width=720, height=480)
 
-        if os.path.exists("../Data/Settings.json"):
+        if os.path.exists("../.Data/Settings.json"):
             self.password_entry.place(relx=0.5, rely=0.65, anchor="center")
             self.login_button.place(relx=0.9, rely=0.65, anchor="center")
 
@@ -62,7 +62,9 @@ class EntryFrame(ttk.Frame):
 
     @staticmethod
     def create_settings(password: str) -> None:
-        with open(file="../Data/Settings.json", mode="w") as file:
+        os.makedirs("../.Data", exist_ok=True)
+
+        with open(file="../.Data/Settings.json", mode="w") as file:
             hashed_pass: str = hash_password(password)
 
             data: dict = {
