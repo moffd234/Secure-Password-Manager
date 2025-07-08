@@ -26,6 +26,8 @@ class EntryFrame(ttk.Frame):
         self.create_account_button: ttk.Button = ttk.Button(text="Create Account", width=15,
                                                             command=self.create_account)
 
+        self.error_label: ttk.Label = ttk.Label(self.canvas, foreground="red")
+
         self.place_elements()
 
     def place_elements(self) -> None:
@@ -41,19 +43,22 @@ class EntryFrame(ttk.Frame):
             self.create_account_button.place(relx=0.9, rely=0.8, anchor="center")
 
     def create_account(self) -> None:
+        from HomeFrame import HomeFrame
         password: str = self.password_entry.get()
         conf_password: str = self.confirm_password_entry.get()
         is_valid: bool = self.validate_passwords(password, conf_password)
 
         if is_valid:
             self.create_settings(password)
+            self.controller.render_frame(HomeFrame)
             return None
 
-        else:
-            return None
+        self.error_label.config(text="Password is not valid")
+        self.error_label.place(relx=0.4, rely=0.9)
+        return None
 
     def is_password_correct(self) -> None:
-        import HomeFrame
+        from HomeFrame import HomeFrame
         pwd: str = self.password_entry.get()
 
         with open(file="../Data/Settings.json", mode="r") as file:
