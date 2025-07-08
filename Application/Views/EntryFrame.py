@@ -2,7 +2,7 @@ import json
 import os
 from tkinter import ttk, PhotoImage, Canvas
 
-from Application.Utils.HelperFunctions import is_password_valid, hash_password
+from Application.Utils.HelperFunctions import is_password_valid, hash_password, verify_password
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
 
 HOME_LOGO = '../Assets/Home Logo.png'
@@ -10,8 +10,10 @@ HOME_LOGO = '../Assets/Home Logo.png'
 
 class EntryFrame(ttk.Frame):
 
-    def __init__(self):
+    def __init__(self, controller):
         super().__init__()
+
+        self.controller = controller
 
         self.canvas_image: PhotoImage = PhotoImage(file=HOME_LOGO)
         self.canvas: Canvas = Canvas(bg='light blue', highlightthickness=0, width=720, height=480)
@@ -50,6 +52,19 @@ class EntryFrame(ttk.Frame):
         else:
             return None
 
+    def is_password_correct(self) -> None:
+        import HomeFrame
+        pwd: str = self.password_entry.get()
+
+        with open(file="../Data/Settings.json", mode="r") as file:
+            data: dict = json.load(file)
+            hashed_pwd: str = data["pwd"]
+            if verify_password(password=pwd, hashed=hashed_pwd):
+                self.controller.render_frame(HomeFrame)
+                return None
+
+        return None
+
     @staticmethod
     def validate_passwords(password: str, conf_password: str) -> bool:
         if password != conf_password:
@@ -67,8 +82,6 @@ class EntryFrame(ttk.Frame):
         with open(file="../.Data/Settings.json", mode="w") as file:
             hashed_pass: str = hash_password(password)
 
-            data: dict = {
-                "pwd": hashed_pass,
-            }
+            data: dict = {"pwd": hashed_pass, }
             json_str: str = json.dumps(data, indent=4)
             file.write(json_str)
