@@ -43,6 +43,11 @@ class EntryFrame(ttk.Frame):
             self.create_account_button.place(relx=0.9, rely=0.8, anchor="center")
 
     def create_account(self) -> None:
+        """
+        Handles the logic for creating a new account.
+        Validates password fields, saves hashed password, and redirects to the HomeFrame.
+        Displays error if validation fails.
+        """
         from HomeFrame import HomeFrame
         password: str = self.password_entry.get()
         conf_password: str = self.confirm_password_entry.get()
