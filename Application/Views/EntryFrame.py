@@ -11,6 +11,12 @@ HOME_LOGO = '../Assets/Home Logo.png'
 class EntryFrame(ttk.Frame):
 
     def __init__(self, controller):
+        """
+        Initialize the EntryFrame.
+
+        :param controller: The controller managing frame transitions.
+        :type controller: tkinter.Tk or any parent with `render_frame` method.
+        """
         super().__init__()
 
         self.controller = controller
