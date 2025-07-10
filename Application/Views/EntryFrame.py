@@ -9,6 +9,10 @@ HOME_LOGO = '../Assets/Home Logo.png'
 
 
 class EntryFrame(ttk.Frame):
+    """
+    Frame for handling password entry and account creation/login logic.
+    Displays either login or account creation UI depending on whether settings exist.
+    """
 
     def __init__(self, controller):
         """
