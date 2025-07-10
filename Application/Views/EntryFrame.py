@@ -31,6 +31,10 @@ class EntryFrame(ttk.Frame):
         self.place_elements()
 
     def place_elements(self) -> None:
+        """
+       Places widgets on the frame depending on whether account settings exist.
+       If settings exist, shows login UI; otherwise, shows account creation UI.
+       """
         self.canvas.place(relx=0.5, rely=0.5, anchor="center", width=720, height=480)
 
         if os.path.exists("../.Data/Settings.json"):
