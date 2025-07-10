@@ -58,6 +58,10 @@ class EntryFrame(ttk.Frame):
         return None
 
     def is_password_correct(self) -> None:
+        """
+        Verifies the entered password against the stored hash.
+        If verified, redirects to the HomeFrame.
+        """
         from HomeFrame import HomeFrame
         pwd: str = self.password_entry.get()
 
