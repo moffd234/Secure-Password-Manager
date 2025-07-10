@@ -72,6 +72,13 @@ class EntryFrame(ttk.Frame):
 
     @staticmethod
     def validate_passwords(password: str, conf_password: str) -> bool:
+        """
+       Validates that the password matches the confirmation and passes meets complexity requirements.
+
+       :param password: The main password entered by the user.
+       :param conf_password: The confirmation password entered by the user.
+       :return: True if passwords match and are valid, False otherwise.
+       """
         if password != conf_password:
             return False
 
