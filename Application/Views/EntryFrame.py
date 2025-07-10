@@ -82,6 +82,11 @@ class EntryFrame(ttk.Frame):
 
     @staticmethod
     def create_settings(password: str) -> None:
+        """
+        Hashes the provided password and stores it in a local settings JSON file.
+
+        :param password: The password to store securely.
+        """
         os.makedirs("../.Data", exist_ok=True)
 
         with open(file="../.Data/Settings.json", mode="w") as file:
