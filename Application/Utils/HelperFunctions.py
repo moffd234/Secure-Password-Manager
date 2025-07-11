@@ -20,6 +20,12 @@ def is_password_valid(password: str) -> bool:
 
 
 def hash_password(password: str) -> str:
+    """
+    Hashes a password using bcrypt with a generated salt.
+
+    :param password: The plain-text password to hash.
+    :return: A bcrypt-hashed version of the password.
+    """
     encoded_bytes: bytes = password.encode('utf-8')
     salt: bytes = bcrypt.gensalt()
     hashed_password: bytes = bcrypt.hashpw(encoded_bytes, salt)
