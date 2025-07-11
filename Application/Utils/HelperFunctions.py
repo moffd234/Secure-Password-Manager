@@ -33,4 +33,11 @@ def hash_password(password: str) -> str:
 
 
 def verify_password(password: str, hashed: str) -> bool:
+    """
+    Verifies a plain-text password against a previously hashed password using bcrypt.
+
+    :param password: The plain-text password to verify.
+    :param hashed: The bcrypt-hashed password to compare against
+    :return: True if the password matches the hash, False otherwise.
+    """
     return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
