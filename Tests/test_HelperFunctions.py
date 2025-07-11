@@ -1,6 +1,7 @@
 import unittest
+from unittest.mock import patch
 
-from Application.Utils.HelperFunctions import is_password_valid
+from Application.Utils.HelperFunctions import is_password_valid, hash_password, verify_password
 
 
 class TestHelperFunctions(unittest.TestCase):
@@ -69,3 +70,47 @@ class TestHelperFunctions(unittest.TestCase):
         test_password: str = ""
 
         self.assertFalse(is_password_valid(test_password))
+
+    def test_hash_password(self):
+        password: str = "ValidPassword123!"
+        hashed_password: str = hash_password(password)
+
+        self.assertNotEqual(password, hashed_password)
+
+    def test_hash_passwords_dont_match(self):
+        password: str = "ValidPassword123!"
+        hashed_password_one: str = hash_password(password)
+        hashed_password_two: str = hash_password(password)
+
+        self.assertNotEqual(hashed_password_one, hashed_password_two)
+
+    @patch("bcrypt.gensalt", return_value=b"salt")
+    @patch("bcrypt.hashpw", return_value=b"hashed_password")
+    def test_hash_passwords_assert_calls(self, mock_hashpw, mock_gensalt):
+        expected: str = "hashed_password"
+        actual: str = hash_password("Password")
+
+        mock_hashpw.assert_called_once_with(b"Password", mock_gensalt.return_value)
+        mock_gensalt.assert_called_once()
+        self.assertEqual(expected, actual)
+
+    def test_verify_password_true(self):
+        password: str = "ValidPassword123!"
+        hashed_password: str = hash_password(password)
+
+        actual: bool = verify_password(password, hashed_password)
+        self.assertTrue(actual)
+
+    def test_verify_password_false(self):
+        password: str = "ValidPassword123!"
+        hashed_password: str = hash_password(password)
+
+        actual: bool = verify_password("password", hashed_password)
+        self.assertFalse(actual)
+
+    def test_verify_password_empty_string(self):
+        password: str = "ValidPassword123!"
+        hashed_password: str = hash_password(password)
+
+        actual: bool = verify_password("", hashed_password)
+        self.assertFalse(actual)
