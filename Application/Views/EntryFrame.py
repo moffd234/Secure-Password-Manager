@@ -26,17 +26,17 @@ class EntryFrame(ttk.Frame):
         self.controller = controller
 
         self.canvas_image: PhotoImage = PhotoImage(file=HOME_LOGO)
-        self.canvas: Canvas = Canvas(bg='light blue', highlightthickness=0, width=720, height=480)
+        self.canvas: Canvas = Canvas(self, bg='light blue', highlightthickness=0, width=720, height=480)
         self.canvas.create_image(360, 240, image=self.canvas_image)
 
-        self.password_entry: PlaceholderEntry = PlaceholderEntry(width=50, placeholder="Enter Password")
-        self.confirm_password_entry: PlaceholderEntry = PlaceholderEntry(width=50, placeholder="Confirm Password")
+        self.password_entry: PlaceholderEntry = PlaceholderEntry(self, width=50, placeholder="Enter Password")
+        self.confirm_password_entry: PlaceholderEntry = PlaceholderEntry(self, width=50, placeholder="Confirm Password")
 
-        self.login_button: ttk.Button = ttk.Button(text="Login", width=15)
-        self.create_account_button: ttk.Button = ttk.Button(text="Create Account", width=15,
+        self.login_button: ttk.Button = ttk.Button(self, text="Login", width=15)
+        self.create_account_button: ttk.Button = ttk.Button(self, text="Create Account", width=15,
                                                             command=self.create_account)
 
-        self.error_label: ttk.Label = ttk.Label(self.canvas, foreground="red")
+        self.error_label: ttk.Label = ttk.Label(self, foreground="red")
 
         self.place_elements()
 
