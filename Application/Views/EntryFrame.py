@@ -14,14 +14,14 @@ class EntryFrame(ttk.Frame):
     Displays either login or account creation UI depending on whether settings exist.
     """
 
-    def __init__(self, controller):
+    def __init__(self, parent: ttk.Frame, controller):
         """
         Initialize the EntryFrame.
 
         :param controller: The controller managing frame transitions.
         :type controller: tkinter.Tk or any parent with `render_frame` method.
         """
-        super().__init__()
+        super().__init__(parent)
 
         self.controller = controller
 
