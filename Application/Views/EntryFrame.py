@@ -91,6 +91,8 @@ class EntryFrame(ttk.Frame):
                 self.controller.render_frame(HomeFrame)
                 return None
 
+        self.error_label.config(text="Password is incorrect")
+        self.error_label.place(relx=0.4, rely=0.9)
         return None
 
     @staticmethod
