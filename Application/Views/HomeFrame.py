@@ -1,3 +1,5 @@
+import secrets
+import string
 from tkinter import ttk, Canvas, PhotoImage
 
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
@@ -24,7 +26,8 @@ class HomeFrame(ttk.Frame):
 
         # Labels
         self.site_label = ttk.Label(self, text='Website', background="light blue", font=FONT)
-        self.username_label = ttk.Label(self, text='Username/Email', background="light blue", foreground='black', font=FONT)
+        self.username_label = ttk.Label(self, text='Username/Email', background="light blue", foreground='black',
+                                        font=FONT)
         self.password_label = ttk.Label(self, text='Password', background="light blue", font=FONT)
 
         # Entries
@@ -36,11 +39,10 @@ class HomeFrame(ttk.Frame):
         # Buttons
         self.search_button = ttk.Button(text="Search", width=15, command="")
         self.autofill_button = ttk.Button(text="Autofill", width=15, command="")
-        self.gen_button = ttk.Button(text="Generate", width=15, command="")
+        self.gen_button = ttk.Button(text="Generate", width=15, command=self.generate_password)
         self.add_button = ttk.Button(text="Add", width=42, command="")
 
         self.place_elements()
-
 
     def place_elements(self):
         self.canvas.place(relx=0.5, rely=0.25, anchor="center")
@@ -58,3 +60,9 @@ class HomeFrame(ttk.Frame):
         self.gen_button.place(relx=0.83, rely=0.71, anchor="center")
 
         self.add_button.place(relx=0.5, rely=0.82, anchor="center")
+
+    def generate_password(self):
+        alphabet = string.ascii_letters + string.digits + string.punctuation
+        password = ''.join(secrets.choice(alphabet) for _ in range(15))
+
+        self.password_entry.set_value(password)
