@@ -1,3 +1,4 @@
+import json
 import re
 
 import bcrypt
@@ -41,3 +42,20 @@ def verify_password(password: str, hashed: str) -> bool:
     :return: True if the password matches the hash, False otherwise.
     """
     return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
+
+def autofill() -> str | None:
+    """
+    Retrieves the autofill setting from the settings configuration file.
+
+    Attempts to read the 'autofill' value from 'data/settings.json'. If the key does not exist,
+    the function assumes autofill has not been configured and returns None.
+
+    :return: The autofill value as a string, or None if the setting is not defined.
+    """
+    try:
+        with open(file='data/settings.json', mode='r') as data_file:
+            data = json.load(data_file)
+            return data['settings']['autofill']
+    except KeyError:
+        # ASSERT: Autofill hasn't been setup yet
+        return None
