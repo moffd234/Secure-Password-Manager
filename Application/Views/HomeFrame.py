@@ -2,6 +2,7 @@ import secrets
 import string
 from tkinter import ttk, Canvas, PhotoImage, simpledialog
 
+from Application.Utils.HelperFunctions import autofill, create_autofill
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
 
 MAIN_LOGO = '../Assets/logo.png'
@@ -29,6 +30,7 @@ class HomeFrame(ttk.Frame):
         self.username_label = ttk.Label(self, text='Username/Email', background="light blue", foreground='black',
                                         font=FONT)
         self.password_label = ttk.Label(self, text='Password', background="light blue", font=FONT)
+        self.error_label: ttk.Label = ttk.Label(self, background="light blue", foreground='red')
 
         # Entries
         self.site_entry = PlaceholderEntry(placeholder="Enter site name", width=50, bg="light green", font=FONT)
@@ -67,6 +69,22 @@ class HomeFrame(ttk.Frame):
 
         self.password_entry.set_value(password)
 
+    def handle_autofill(self) -> None:
+        username: str | None = autofill()
+        if not username:
+            username = self.create_autofill_prompt()
+
+            if not username:
+                self.error_label.config(text="Autofill username not provided.")
+                return None
+
+            was_successful: bool = create_autofill(username)
+            if not was_successful:
+                self.error_label.config(text="Error creating autofill, please try again later.")
+                return None
+
+        self.error_label.config(text="")
+
     @staticmethod
     def create_autofill_prompt() -> str | None:
         """
@@ -78,8 +96,8 @@ class HomeFrame(ttk.Frame):
 
         :return: The entered username as a string, or None if the prompt was canceled.
         """
-        result = simpledialog.askstring(title="Autofill Prompt",
-                                        prompt="Create a default username to autofill")
+        result: str | None = simpledialog.askstring(title="Autofill Prompt",
+                                                    prompt="Create a default username to autofill")
 
         while result is None or result == '':
             if result is None:
