@@ -1,7 +1,8 @@
+import json
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, mock_open
 
-from Application.Utils.HelperFunctions import is_password_valid, hash_password, verify_password
+from Application.Utils.HelperFunctions import is_password_valid, hash_password, verify_password, autofill
 
 
 class TestHelperFunctions(unittest.TestCase):
@@ -114,3 +115,18 @@ class TestHelperFunctions(unittest.TestCase):
 
         actual: bool = verify_password("", hashed_password)
         self.assertFalse(actual)
+
+    @patch("builtins.open", new_callable=mock_open, read_data=json.dumps({"settings": {"autofill": "enabled"}}))
+    def test_autofill_valid(self, mock_file):
+        expected: str = "enabled"
+        actual: str = autofill()
+
+        mock_file.assert_called_once()
+        self.assertEqual(expected, actual)
+
+    @patch("builtins.open", new_callable=mock_open, read_data=json.dumps({"settings": {"NotSettings": "value"}}))
+    def test_autofill_not_setup_yet(self, mock_file):
+
+        result = autofill()
+        mock_file.assert_called_once()
+        self.assertIsNone(result)
