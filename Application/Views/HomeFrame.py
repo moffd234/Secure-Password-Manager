@@ -70,6 +70,16 @@ class HomeFrame(ttk.Frame):
         self.password_entry.set_value(password)
 
     def handle_autofill(self) -> None:
+        """
+        Handles the autofill logic for setting a default username.
+
+        Attempts to retrieve a previously saved autofill username. If none exists,
+        prompts the user to enter a new one. If the user cancels or enters an invalid
+        value, an error message is displayed. If a valid username is provided, it is
+        saved to the settings. Displays an error if saving fails.
+
+        :return: None
+        """
         username: str | None = autofill()
         if not username:
             username = self.create_autofill_prompt()
