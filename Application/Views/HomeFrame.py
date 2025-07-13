@@ -43,23 +43,18 @@ class HomeFrame(ttk.Frame):
 
 
     def place_elements(self):
-        # Logo canvas
         self.canvas.place(relx=0.5, rely=0.25, anchor="center")
 
-        # Row 1: Website
         self.site_label.place(relx=0.22, rely=0.55, anchor="e")
         self.site_entry.place(relx=0.5, rely=0.55, anchor="center")
         self.search_button.place(relx=0.83, rely=0.55, anchor="center")
 
-        # Row 2: Username
         self.username_label.place(relx=0.22, rely=0.63, anchor="e")
         self.username_entry.place(relx=0.5, rely=0.63, anchor="center")
         self.autofill_button.place(relx=0.83, rely=0.63, anchor="center")
 
-        # Row 3: Password
         self.password_label.place(relx=0.22, rely=0.71, anchor="e")
         self.password_entry.place(relx=0.5, rely=0.71, anchor="center")
         self.gen_button.place(relx=0.83, rely=0.71, anchor="center")
 
-        # Row 4: Add Button (centered)
         self.add_button.place(relx=0.5, rely=0.82, anchor="center")
