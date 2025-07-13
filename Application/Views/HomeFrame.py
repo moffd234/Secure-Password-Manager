@@ -28,3 +28,9 @@ class HomeFrame(ttk.Frame):
         self.username_entry = PlaceholderEntry(placeholder="Enter username", width=50, bg="light green", font=FONT)
         self.password_entry = PlaceholderEntry(placeholder="Enter Password", width=50, bg="light green", font=FONT)
         self.site_entry.focus()
+
+        # Buttons
+        search_button = ttk.Button(text="Search", width=15, command="")
+        autofill_button = ttk.Button(text="Autofill", width=15, command="")
+        gen_button = ttk.Button(text="Generate", width=15, command="")
+        add_button = ttk.Button(text="Add", width=42, command="")
