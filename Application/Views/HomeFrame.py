@@ -2,7 +2,7 @@ from tkinter import ttk, Canvas, PhotoImage
 
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
 
-MAIN_LOGO = './Assets/logo.png'
+MAIN_LOGO = '../Assets/logo.png'
 WIN_WIDTH = 720
 WIN_HEIGHT = 480
 FONT = ("aerial", 8, "bold")
@@ -12,6 +12,10 @@ class HomeFrame(ttk.Frame):
     def __init__(self, parent: ttk.Frame, controller):
         super().__init__(parent)
         self.controller = controller
+
+        style = ttk.Style()
+        style.configure("Blue.TFrame", background="light blue")
+        self.configure(style="Blue.TFrame")
 
         # Canvas
         self.canvas_image = PhotoImage(file=MAIN_LOGO)
@@ -30,7 +34,8 @@ class HomeFrame(ttk.Frame):
         self.site_entry.focus()
 
         # Buttons
-        search_button = ttk.Button(text="Search", width=15, command="")
-        autofill_button = ttk.Button(text="Autofill", width=15, command="")
-        gen_button = ttk.Button(text="Generate", width=15, command="")
-        add_button = ttk.Button(text="Add", width=42, command="")
+        self.search_button = ttk.Button(text="Search", width=15, command="")
+        self.autofill_button = ttk.Button(text="Autofill", width=15, command="")
+        self.gen_button = ttk.Button(text="Generate", width=15, command="")
+        self.add_button = ttk.Button(text="Add", width=42, command="")
+
