@@ -62,3 +62,11 @@ class PlaceholderEntry(tkinter.Entry):
         """
         value = self.get()
         return "" if value == self.placeholder else value
+
+    def set_value(self, text: str) -> None:
+        """
+        Sets the value of the entry, bypassing placeholder logic.
+        """
+        self.delete(0, 'end')
+        self.insert(0, text)
+        self['fg'] = self.default_fg_color
