@@ -59,3 +59,23 @@ def autofill() -> str | None:
     except KeyError:
         # ASSERT: Autofill hasn't been setup yet
         return None
+
+def create_autofill(username: str) -> bool:
+    """
+    Sets or updates the 'autofill' setting inside the 'settings' block of the config file.
+
+    :param username: The username to store for autofill.
+    :return: True if successful, False if file not found.
+    """
+    try:
+        with open('.data/settings.json', 'r') as data_file:
+            data = json.load(data_file)
+
+        data.setdefault('settings', {})['autofill'] = username
+
+        with open('.data/settings.json', 'w') as data_file:
+            json.dump(data, data_file, indent=4)
+            return True
+
+    except FileNotFoundError:
+        return False
