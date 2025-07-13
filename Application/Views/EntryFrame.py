@@ -32,7 +32,7 @@ class EntryFrame(ttk.Frame):
         self.password_entry: PlaceholderEntry = PlaceholderEntry(self, width=50, placeholder="Enter Password")
         self.confirm_password_entry: PlaceholderEntry = PlaceholderEntry(self, width=50, placeholder="Confirm Password")
 
-        self.login_button: ttk.Button = ttk.Button(self, text="Login", width=15)
+        self.login_button: ttk.Button = ttk.Button(self, text="Login", width=15, command=self.is_password_correct)
         self.create_account_button: ttk.Button = ttk.Button(self, text="Create Account", width=15,
                                                             command=self.create_account)
 
@@ -84,7 +84,7 @@ class EntryFrame(ttk.Frame):
         from HomeFrame import HomeFrame
         pwd: str = self.password_entry.get()
 
-        with open(file="../Data/Settings.json", mode="r") as file:
+        with open(file="../.Data/Settings.json", mode="r") as file:
             data: dict = json.load(file)
             hashed_pwd: str = data["pwd"]
             if verify_password(password=pwd, hashed=hashed_pwd):
