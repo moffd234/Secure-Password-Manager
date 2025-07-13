@@ -86,7 +86,7 @@ class EntryFrame(ttk.Frame):
 
         with open(file="../.Data/Settings.json", mode="r") as file:
             data: dict = json.load(file)
-            hashed_pwd: str = data["pwd"]
+            hashed_pwd: str = data["app_password"]["password"]
             if verify_password(password=pwd, hashed=hashed_pwd):
                 self.controller.render_frame(HomeFrame)
                 return None
@@ -124,6 +124,6 @@ class EntryFrame(ttk.Frame):
         with open(file="../.Data/Settings.json", mode="w") as file:
             hashed_pass: str = hash_password(password)
 
-            data: dict = {"pwd": hashed_pass, }
+            data: dict = {'app_password': {"password": hashed_pass, }}
             json_str: str = json.dumps(data, indent=4)
             file.write(json_str)

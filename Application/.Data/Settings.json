@@ -1,3 +1,5 @@
 {
-    "pwd": "$2b$12$0dOxlMonihR4GZhKSiphE./Q3/8iQgmF7FpHdBF/mL5cPYX2l0l2m"
+    "app_password": {
+        "password": "$2b$12$p07QAS4wq/BWZNr5NBqbHuEZsyjqKH7ZKsMf5ejir5JfOSYaOksBy"
+    }
 }
