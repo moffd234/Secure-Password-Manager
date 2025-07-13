@@ -2,6 +2,19 @@ import tkinter
 
 
 class PlaceholderEntry(tkinter.Entry):
+    """
+    A custom tkinter Entry widget that supports placeholder text.
+
+    This class extends the standard tkinter Entry widget by adding support for
+    placeholder text that appears in the input field when it is empty and not focused.
+    The placeholder is automatically removed when the widget gains focus and restored
+    if the input is left empty when focus is lost.
+
+    :param master: The parent widget.
+    :param placeholder: The placeholder text to display when the field is empty.
+    :param color: The foreground color of the placeholder text.
+    :param kwargs: Additional keyword arguments passed to the tkinter.Entry constructor.
+    """
     def __init__(self, master=None, placeholder="", color='grey', **kwargs):
         super().__init__(master, **kwargs)
         self.placeholder: str = placeholder
