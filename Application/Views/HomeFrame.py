@@ -1,6 +1,6 @@
 import secrets
 import string
-from tkinter import ttk, Canvas, PhotoImage
+from tkinter import ttk, Canvas, PhotoImage, simpledialog
 
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
 
@@ -66,3 +66,27 @@ class HomeFrame(ttk.Frame):
         password = ''.join(secrets.choice(alphabet) for _ in range(15))
 
         self.password_entry.set_value(password)
+
+    @staticmethod
+    def create_autofill_prompt() -> str | None:
+        """
+        Prompt the user to create a default username for autofill.
+
+        Shows an input dialog requesting a username. If the input is empty,
+        repeatedly prompts the user until a non-empty username is provided or
+        the dialog is canceled.
+
+        :return: The entered username as a string, or None if the prompt was canceled.
+        """
+        result = simpledialog.askstring(title="Autofill Prompt",
+                                        prompt="Create a default username to autofill")
+
+        while result is None or result == '':
+            if result is None:
+                # ASSERT: User canceled out of the prompt
+                return None
+
+            result = simpledialog.askstring(title="Username cannot be blank",
+                                            prompt="Create a default username to autofill")
+
+        return result
