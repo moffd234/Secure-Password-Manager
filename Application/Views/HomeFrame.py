@@ -129,7 +129,16 @@ class HomeFrame(ttk.Frame):
         return result
 
     def show_error(self, message: str):
+        """
+        Displays an error message centered on the screen for a limited duration.
+
+        The message is shown in the error label widget, placed above all other widgets.
+        It remains visible for 10 seconds before being automatically hidden.
+
+        :param message: The error message to display.
+        :type message: str
+        :return: None
+        """
         self.error_label.config(text=message)
         self.error_label.place(relx=0.5, rely=0.5, anchor="center")
         self.error_label.lift()
-        self.after(10000, self.error_label.place_forget)
