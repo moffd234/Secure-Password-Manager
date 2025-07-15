@@ -43,6 +43,7 @@ def verify_password(password: str, hashed: str) -> bool:
     """
     return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
 
+
 def autofill() -> str | None:
     """
     Retrieves the autofill setting from the settings configuration file.
@@ -59,6 +60,7 @@ def autofill() -> str | None:
     except KeyError:
         # ASSERT: Autofill hasn't been setup yet
         return None
+
 
 def create_autofill(username: str) -> bool:
     """
