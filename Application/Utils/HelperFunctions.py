@@ -85,6 +85,17 @@ def create_autofill(username: str) -> bool:
 
 
 def store_creds(website: str, username: str, pwd: str) -> None:
+    """
+    Stores or updates login credentials for a given website in a JSON file.
+
+    If the JSON file does not exist or is invalid, it will be created with the provided entry.
+    If the file exists and is valid, the entry will be added or updated.
+
+    :param website: The name of the website to associate with the credentials.
+    :param username: The username or email to store.
+    :param pwd: The password to store.
+    :return: None
+    """
     try:
         with open(file='data/data.json', mode='r') as data_file:
             data: dict = json.load(data_file)
