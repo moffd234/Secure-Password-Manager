@@ -1,4 +1,5 @@
 import json
+import os
 import re
 
 import bcrypt
@@ -81,3 +82,18 @@ def create_autofill(username: str) -> bool:
 
     except FileNotFoundError:
         return False
+
+
+def store_creds(website: str, username: str, pwd: str) -> None:
+    try:
+        with open(file='data/data.json', mode='r') as data_file:
+            data: dict = json.load(data_file)
+
+    except (FileNotFoundError, json.decoder.JSONDecodeError):
+        with open(file='data/data.json', mode='w') as data_file:
+            data: dict = {}
+
+    data[website] = {"username": username, "password": pwd}
+
+    with open(file='data/data.json', mode='w') as data_file:
+        json.dump(data, data_file, indent=4)
