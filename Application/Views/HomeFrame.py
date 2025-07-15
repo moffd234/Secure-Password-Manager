@@ -32,6 +32,7 @@ class HomeFrame(ttk.Frame):
                                         font=FONT)
         self.password_label = ttk.Label(self, text='Password', background="light blue", font=FONT)
         self.error_label: ttk.Label = ttk.Label(self, background="light blue", foreground='red')
+        self.success_label: ttk.Label = ttk.Label(self, background="light blue", foreground='green')
 
         # Entries
         self.site_entry = PlaceholderEntry(placeholder="Enter site name", width=50, bg="light green", font=FONT)
@@ -143,6 +144,21 @@ class HomeFrame(ttk.Frame):
         self.error_label.config(text=message)
         self.error_label.place(relx=0.5, rely=0.5, anchor="center")
         self.error_label.lift()
+
+    def show_success(self, message: str):
+        """
+        Displays a success message centered on the screen.
+
+        The message is shown in the success label widget, placed above all other widgets.
+        It remains visible until manually cleared or replaced.
+
+        :param message: The success message to display.
+        :type message: str
+        :return: None
+        """
+        self.success_label.config(text=message)
+        self.success_label.place(relx=0.5, rely=0.5, anchor="center")
+        self.success_label.lift()
 
     def check_entries(self, username: str, password: str, website: str) -> bool:
         """
