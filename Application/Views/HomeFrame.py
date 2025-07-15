@@ -1,3 +1,4 @@
+import os
 import secrets
 import string
 from tkinter import ttk, Canvas, PhotoImage, simpledialog
@@ -142,3 +143,20 @@ class HomeFrame(ttk.Frame):
         self.error_label.config(text=message)
         self.error_label.place(relx=0.5, rely=0.5, anchor="center")
         self.error_label.lift()
+
+    def check_entries(self, username: str, password: str, website: str) -> bool:
+        """
+        Validates that all required fields are filled in.
+
+        If any field is empty, an error message is displayed and validation fails.
+
+        :param username: The stripped username or email.
+        :param password: The stripped password.
+        :param website: The stripped website name.
+        :return: True if all fields are filled, False otherwise.
+        """
+        if not username or not password or not website:
+            self.show_error("Please enter all required fields and try again.")
+            return False
+
+        return True
