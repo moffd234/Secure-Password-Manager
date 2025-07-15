@@ -79,7 +79,7 @@ class HomeFrame(ttk.Frame):
 
     def handle_autofill(self) -> None:
         """
-        Handles the autofill logic for setting a default username or auto filling that username.
+        Handles the autofill logic for setting a default username or autofilling that username.
 
         Attempts to retrieve a previously saved autofill username. If none exists,
         prompts the user to enter a new one. If the user cancels or enters an invalid
@@ -93,15 +93,16 @@ class HomeFrame(ttk.Frame):
             username = self.create_autofill_prompt()
 
             if not username:
-                self.error_label.config(text="Autofill username not provided.")
+                self.show_error("Error creating autofill, please try again later.")
                 return None
 
             was_successful: bool = create_autofill(username)
             if not was_successful:
-                self.error_label.config(text="Error creating autofill, please try again later.")
+                self.show_error("Error creating autofill, please try again later.")
                 return None
 
         self.username_entry.set_value(username)
+        return None
 
     @staticmethod
     def create_autofill_prompt() -> str | None:
@@ -126,3 +127,9 @@ class HomeFrame(ttk.Frame):
                                             prompt="Create a default username to autofill")
 
         return result
+
+    def show_error(self, message: str):
+        self.error_label.config(text=message)
+        self.error_label.place(relx=0.5, rely=0.5, anchor="center")
+        self.error_label.lift()
+        self.after(10000, self.error_label.place_forget)
