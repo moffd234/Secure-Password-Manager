@@ -47,7 +47,7 @@ class HomeFrame(ttk.Frame):
         self.place_elements()
 
     def place_elements(self):
-        self.canvas.place(relx=0.5, rely=0.25, anchor="center")
+        self.canvas.place(relx=0.5, rely=0.23, anchor="center")
 
         self.site_label.place(relx=0.22, rely=0.55, anchor="e")
         self.site_entry.place(relx=0.5, rely=0.55, anchor="center")
