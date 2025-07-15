@@ -1,9 +1,8 @@
-import os
 import secrets
 import string
 from tkinter import ttk, Canvas, PhotoImage, simpledialog
 
-from Application.Utils.HelperFunctions import autofill, create_autofill
+from Application.Utils.HelperFunctions import autofill, create_autofill, hash_password, store_creds
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
 
 MAIN_LOGO = '../Assets/logo.png'
@@ -13,6 +12,13 @@ FONT = ("aerial", 8, "bold")
 
 
 class HomeFrame(ttk.Frame):
+    """
+    The main application frame for managing website credentials.
+
+    This frame provides a user interface to input website, username, and password
+    information, generate secure passwords, autofill saved usernames, and store
+    hashed credentials securely in a JSON file.
+    """
     def __init__(self, parent: ttk.Frame, controller):
         super().__init__(parent)
         self.controller = controller
