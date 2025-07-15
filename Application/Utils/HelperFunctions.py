@@ -54,7 +54,7 @@ def autofill() -> str | None:
     :return: The autofill value as a string, or None if the setting is not defined.
     """
     try:
-        with open(file='data/settings.json', mode='r') as data_file:
+        with open(file='../.Data/Settings.json', mode='r') as data_file:
             data = json.load(data_file)
             return data['settings']['autofill']
     except KeyError:
@@ -70,12 +70,12 @@ def create_autofill(username: str) -> bool:
     :return: True if successful, False if file not found.
     """
     try:
-        with open('.data/settings.json', 'r') as data_file:
+        with open('../.Data/Settings.json', 'r') as data_file:
             data = json.load(data_file)
 
         data.setdefault('settings', {})['autofill'] = username
 
-        with open('.data/settings.json', 'w') as data_file:
+        with open('../.Data/Settings.json', 'w') as data_file:
             json.dump(data, data_file, indent=4)
             return True
 
