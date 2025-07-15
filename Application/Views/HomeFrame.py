@@ -64,6 +64,14 @@ class HomeFrame(ttk.Frame):
         self.add_button.place(relx=0.5, rely=0.82, anchor="center")
 
     def generate_password(self):
+        """
+        Generates a secure random password and sets it in the password entry field.
+
+        The password consists of 15 characters randomly selected from uppercase letters,
+        lowercase letters, digits, and punctuation symbols.
+
+        :return: None
+        """
         alphabet = string.ascii_letters + string.digits + string.punctuation
         password = ''.join(secrets.choice(alphabet) for _ in range(15))
 
