@@ -1,7 +1,7 @@
 import json
-import os
 import re
 
+from cryptography.fernet import Fernet
 import bcrypt
 
 
@@ -108,3 +108,21 @@ def store_creds(website: str, username: str, pwd: str) -> None:
 
     with open(file='data/data.json', mode='w') as data_file:
         json.dump(data, data_file, indent=4)
+
+
+def get_encryption_key() -> bytes:
+    """
+    Loads or generates a new Fernet key for encryption.
+    """
+
+    key_path: str = "../.Data/secret.key"
+
+    try:
+        with open(key_path, "rb") as key_file:
+            return key_file.read()
+
+    except FileNotFoundError:
+        key: bytes = Fernet.generate_key()
+        with open(key_path, "wb") as key_file:
+            key_file.write(key)
+        return key
