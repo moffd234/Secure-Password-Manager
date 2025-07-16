@@ -147,10 +147,30 @@ def check_entries(*args) -> bool:
 
     return all(field for field in args)
 
+
 def encrypt_password(pwd: str) -> str:
+    """
+    Encrypts a plain-text password using Fernet symmetric encryption.
+
+    The password is encoded to bytes, encrypted using the Fernet key retrieved
+    by `get_encryption_key()`, and then decoded back to a string for storage.
+
+    :param pwd: The plain-text password to encrypt.
+    :return: The encrypted password as a URL-safe base64-encoded string.
+    """
     fernet: Fernet = Fernet(get_encryption_key())
     return fernet.encrypt(pwd.encode()).decode()
 
+
 def decrypt_password(encrypted_pwd: str):
+    """
+    Decrypts an encrypted password string using Fernet symmetric encryption.
+
+    The encrypted password string is encoded to bytes, decrypted using the Fernet key
+    retrieved by `get_encryption_key()`, and then decoded back to the original plain-text password.
+
+    :param encrypted_pwd: The encrypted password string to decrypt.
+    :return: The original decrypted plain-text password.
+    """
     fernet = Fernet(get_encryption_key())
     return fernet.decrypt(encrypted_pwd.encode()).decode()
