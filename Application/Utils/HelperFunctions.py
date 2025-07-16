@@ -112,7 +112,13 @@ def store_creds(website: str, username: str, pwd: str) -> None:
 
 def get_encryption_key() -> bytes:
     """
-    Loads or generates a new Fernet key for encryption.
+    Retrieves the symmetric encryption key used for encrypting and decrypting credentials.
+
+    If the key file (`../.Data/secret.key`) exists, it loads and returns the key.
+    If the key file is missing, a new Fernet key is generated, saved to the file,
+    and then returned.
+
+    :return: A Fernet-compatible encryption key as bytes.
     """
 
     key_path: str = "../.Data/secret.key"
