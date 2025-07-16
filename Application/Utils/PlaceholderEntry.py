@@ -70,3 +70,15 @@ class PlaceholderEntry(tkinter.Entry):
         self.delete(0, 'end')
         self.insert(0, text)
         self['fg'] = self.default_fg_color
+
+    def clear_field(self) -> None:
+        """
+        Clears the current content of the entry and restores the placeholder text.
+
+        This method resets the entry field to its initial placeholder state,
+        useful for resetting forms or fields after submission or cancellation.
+
+        :return: None
+        """
+        self.delete(0, 'end')
+        self.put_placeholder()
