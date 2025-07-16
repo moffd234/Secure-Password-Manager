@@ -3,7 +3,7 @@ import string
 from cryptography.fernet import Fernet
 from tkinter import ttk, Canvas, PhotoImage, simpledialog
 
-from Application.Utils.HelperFunctions import autofill, create_autofill, store_creds, get_encryption_key
+from Application.Utils.HelperFunctions import autofill, create_autofill, store_creds, get_encryption_key, check_entries
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
 
 MAIN_LOGO = '../Assets/logo.png'
@@ -167,6 +167,34 @@ class HomeFrame(ttk.Frame):
         self.success_label.config(text=message)
         self.success_label.place(relx=0.5, rely=0.5, anchor="center")
         self.success_label.lift()
+
+    def add_creds(self) -> None:
+        """
+        Collects and stores user credentials for a given website.
+
+        Retrieves the input from the website, username, and password entry fields.
+        Encrypts the password using Fernet symmetric encryption and stores the resulting
+        credentials in a JSON file via the `store_creds` helper function.
+
+        If any required fields are empty, an error message is displayed and the process is aborted. Else a success
+        message is displayed.
+
+        :return: None
+        """
+        username: str = self.username_entry.get().strip()
+        password: str = self.password_entry.get().strip()
+        site: str = self.site_entry.get().strip()
+
+        fernet: Fernet = Fernet(get_encryption_key())
+        encrypted_pwd = fernet.encrypt(password.encode()).decode()
+
+        if not check_entries(username, password, site):
+            self.show_error("Please fill out all fields and try again.")
+            return None
+
+        store_creds(site, username, encrypted_pwd)
+        self.show_success("Successfully stored credentials.")
+        return None
 
     def clear_fields(self) -> None:
         """
