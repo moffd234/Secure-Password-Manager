@@ -168,23 +168,6 @@ class HomeFrame(ttk.Frame):
         self.success_label.place(relx=0.5, rely=0.5, anchor="center")
         self.success_label.lift()
 
-    def check_entries(self, username: str, password: str, website: str) -> bool:
-        """
-        Validates that all required fields are filled in.
-
-        If any field is empty, an error message is displayed and validation fails.
-
-        :param username: The stripped username or email.
-        :param password: The stripped password.
-        :param website: The stripped website name.
-        :return: True if all fields are filled, False otherwise.
-        """
-        if not username or not password or not website:
-            self.show_error("Please enter all required fields and try again.")
-            return False
-
-        return True
-
     def clear_fields(self) -> None:
         """
         Clears the content of all input fields and restores their placeholder text.

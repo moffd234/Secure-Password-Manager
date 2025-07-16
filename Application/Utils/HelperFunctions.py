@@ -132,3 +132,13 @@ def get_encryption_key() -> bytes:
         with open(key_path, "wb") as key_file:
             key_file.write(key)
         return key
+
+def check_entries(*args) -> bool:
+    """
+    Checks if all provided fields are non-empty.
+
+    :param args: One or more strings representing input fields.
+    :return: True if all fields are filled (non-empty), False otherwise.
+    """
+
+    return all(field for field in args)
