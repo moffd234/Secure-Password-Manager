@@ -146,3 +146,7 @@ def check_entries(*args) -> bool:
     """
 
     return all(field for field in args)
+
+def encrypt_password(pwd: str) -> str:
+    fernet: Fernet = Fernet(get_encryption_key())
+    return fernet.encrypt(pwd.encode()).decode()

@@ -3,7 +3,8 @@ import string
 from cryptography.fernet import Fernet
 from tkinter import ttk, Canvas, PhotoImage, simpledialog
 
-from Application.Utils.HelperFunctions import autofill, create_autofill, store_creds, get_encryption_key, check_entries
+from Application.Utils.HelperFunctions import autofill, create_autofill, store_creds, get_encryption_key, check_entries, \
+    encrypt_password
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
 
 MAIN_LOGO = '../Assets/logo.png'
@@ -185,8 +186,7 @@ class HomeFrame(ttk.Frame):
         password: str = self.password_entry.get().strip()
         site: str = self.site_entry.get().strip()
 
-        fernet: Fernet = Fernet(get_encryption_key())
-        encrypted_pwd = fernet.encrypt(password.encode()).decode()
+        encrypted_pwd: str = encrypt_password(password)
 
         if not check_entries(username, password, site):
             self.show_error("Please fill out all fields and try again.")
