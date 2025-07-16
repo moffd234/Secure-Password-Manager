@@ -52,7 +52,7 @@ class HomeFrame(ttk.Frame):
         self.search_button = ttk.Button(text="Search", width=15, command="")
         self.autofill_button = ttk.Button(text="Autofill", width=15, command=self.handle_autofill)
         self.gen_button = ttk.Button(text="Generate", width=15, command=self.generate_password)
-        self.add_button = ttk.Button(text="Add", width=42, command="")
+        self.add_button = ttk.Button(text="Add", width=42, command=self.add_creds)
 
         self.place_elements()
 
