@@ -1,8 +1,9 @@
 import secrets
 import string
+from cryptography.fernet import Fernet
 from tkinter import ttk, Canvas, PhotoImage, simpledialog
 
-from Application.Utils.HelperFunctions import autofill, create_autofill, hash_password, store_creds
+from Application.Utils.HelperFunctions import autofill, create_autofill, store_creds, get_encryption_key
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
 
 MAIN_LOGO = '../Assets/logo.png'
@@ -19,6 +20,7 @@ class HomeFrame(ttk.Frame):
     information, generate secure passwords, autofill saved usernames, and store
     hashed credentials securely in a JSON file.
     """
+
     def __init__(self, parent: ttk.Frame, controller):
         super().__init__(parent)
         self.controller = controller
@@ -182,3 +184,15 @@ class HomeFrame(ttk.Frame):
             return False
 
         return True
+
+    def clear_fields(self) -> None:
+        """
+        Clears the content of all input fields and restores their placeholder text.
+
+        This method resets the site, username, and password entry fields to their initial state.
+
+        :return: None
+        """
+        self.site_entry.clear_field()
+        self.username_entry.clear_field()
+        self.password_entry.clear_field()
