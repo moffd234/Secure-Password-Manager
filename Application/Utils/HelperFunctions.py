@@ -4,6 +4,9 @@ import re
 from cryptography.fernet import Fernet
 import bcrypt
 
+SETTINGS_FILE = "../.Data/Settings.json"
+CRED_FILE = "../.Data/Creds.json"
+
 
 def is_password_valid(password: str) -> bool:
     """
@@ -55,7 +58,7 @@ def autofill() -> str | None:
     :return: The autofill value as a string, or None if the setting is not defined.
     """
     try:
-        with open(file='../.Data/Settings.json', mode='r') as data_file:
+        with open(file=SETTINGS_FILE, mode='r') as data_file:
             data = json.load(data_file)
             return data['settings']['autofill']
     except KeyError:
@@ -71,12 +74,12 @@ def create_autofill(username: str) -> bool:
     :return: True if successful, False if file not found.
     """
     try:
-        with open('../.Data/Settings.json', 'r') as data_file:
+        with open(SETTINGS_FILE, 'r') as data_file:
             data = json.load(data_file)
 
         data.setdefault('settings', {})['autofill'] = username
 
-        with open('../.Data/Settings.json', 'w') as data_file:
+        with open(SETTINGS_FILE, 'w') as data_file:
             json.dump(data, data_file, indent=4)
             return True
 
@@ -97,16 +100,16 @@ def store_creds(website: str, username: str, pwd: str) -> None:
     :return: None
     """
     try:
-        with open(file='data/data.json', mode='r') as data_file:
+        with open(file=CRED_FILE, mode='r') as data_file:
             data: dict = json.load(data_file)
 
     except (FileNotFoundError, json.decoder.JSONDecodeError):
-        with open(file='data/data.json', mode='w') as data_file:
+        with open(file=CRED_FILE, mode='w') as _:
             data: dict = {}
 
     data[website] = {"username": username, "password": pwd}
 
-    with open(file='data/data.json', mode='w') as data_file:
+    with open(file=CRED_FILE, mode='w') as data_file:
         json.dump(data, data_file, indent=4)
 
 
@@ -132,6 +135,7 @@ def get_encryption_key() -> bytes:
         with open(key_path, "wb") as key_file:
             key_file.write(key)
         return key
+
 
 def check_entries(*args) -> bool:
     """
