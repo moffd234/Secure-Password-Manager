@@ -186,5 +186,5 @@ fabric.properties
 # .idea
 
 *.key
-creds.json
+Creds.json
 logs/
