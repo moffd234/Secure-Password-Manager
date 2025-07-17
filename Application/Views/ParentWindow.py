@@ -17,6 +17,7 @@ class ParentWindow(tkinter.Tk):
 
         self.container: ttk.Frame = ttk.Frame(self)
         self.container.pack(fill="both", expand=True)
+        self.menu_bar: tkinter.Menu = tkinter.Menu()
         self.render_frame(EntryFrame)
 
     def render_frame(self, new_frame) -> None:
@@ -31,7 +32,19 @@ class ParentWindow(tkinter.Tk):
         frame: ttk.Frame = new_frame(self.container, self)
 
         frame.pack(fill="both", expand=True)
+    def create_menu(self) -> None:
+        """
+        Creates the top menu bar for easier application navigation.
+        :return: None
+        """
+        # Account Menu
+        account_menu: tkinter.Menu = tkinter.Menu(self.menu_bar, tearoff=False)
+        self.menu_bar.add_cascade(label="Account", menu=account_menu)
+        account_menu.add_command(label="Reset App Password", command="")
+        account_menu.add_command(label="Change Autofill", command="")
+        account_menu.add_command(label="View Passwords", command="")
 
+        self.configure(menu=self.menu_bar)
 
 if __name__ == "__main__":
     app: ParentWindow = ParentWindow()
