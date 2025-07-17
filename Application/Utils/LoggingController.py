@@ -1,3 +1,4 @@
+import inspect
 import logging
 import os
 from logging import Formatter, FileHandler
@@ -24,3 +25,7 @@ def setup_logging() -> None:
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
     logger.addHandler(file_handler)
+
+def log_error_and_method(error: Exception) -> None:
+    method_name = inspect.stack()[1].function
+    logging.warning(f"{type(error).__name__} occurred in {method_name}: {error}")
