@@ -1,9 +1,8 @@
 import secrets
 import string
-from cryptography.fernet import Fernet
 from tkinter import ttk, Canvas, PhotoImage, simpledialog
 
-from Application.Utils.HelperFunctions import autofill, create_autofill, store_creds, get_encryption_key, check_entries, \
+from Application.Utils.HelperFunctions import autofill, create_autofill, store_creds, check_entries, \
     encrypt_password
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
 

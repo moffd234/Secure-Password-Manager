@@ -174,3 +174,22 @@ def decrypt_password(encrypted_pwd: str):
     """
     fernet = Fernet(get_encryption_key())
     return fernet.decrypt(encrypted_pwd.encode()).decode()
+
+
+def find_creds(site: str) -> dict | None:
+    """
+    Searches credentials file for credentials matching the given site then returns the credentials if found.
+    Otherwise, returns None.
+
+    :param site: The website to search for credentials.
+    :return: Username and decrypted password if found for the site. Otherwise, None.
+    """
+    try:
+        with open(CRED_FILE, mode='r') as data_file:
+            data: dict = json.load(data_file)
+            creds: dict = data[site]
+            creds["password"] = decrypt_password(creds["password"])
+            return creds
+
+    except (FileNotFoundError, KeyError, json.decoder.JSONDecodeError):
+        return None
