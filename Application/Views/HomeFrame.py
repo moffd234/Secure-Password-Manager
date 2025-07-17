@@ -82,6 +82,7 @@ class HomeFrame(ttk.Frame):
 
         :return: None
         """
+        self.clear_status_messages()
         alphabet = string.ascii_letters + string.digits + string.punctuation
         password = ''.join(secrets.choice(alphabet) for _ in range(15))
 
@@ -98,7 +99,9 @@ class HomeFrame(ttk.Frame):
 
         :return: None
         """
+        self.clear_status_messages()
         username: str | None = autofill()
+
         if not username:
             username = self.create_autofill_prompt()
 
@@ -194,6 +197,7 @@ class HomeFrame(ttk.Frame):
 
         :return: None
         """
+        self.clear_status_messages()
         username: str = self.username_entry.get().strip()
         password: str = self.password_entry.get().strip()
         site: str = self.site_entry.get().strip()
@@ -231,6 +235,7 @@ class HomeFrame(ttk.Frame):
 
         :return: None
         """
+        self.clear_status_messages()
         site: str = self.site_entry.get().strip()
 
         creds: dict[str, str] | None = find_creds(site)
