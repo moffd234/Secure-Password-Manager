@@ -2,9 +2,13 @@ import json
 import logging
 import os
 from tkinter import ttk, PhotoImage, Canvas
+from typing import TYPE_CHECKING
 
 from Application.Utils.HelperFunctions import is_password_valid, hash_password, verify_password
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
+
+if TYPE_CHECKING:
+    from Application.Views.ParentWindow import ParentWindow
 
 HOME_LOGO = '../Assets/Home Logo.png'
 
@@ -15,7 +19,7 @@ class EntryFrame(ttk.Frame):
     Displays either login or account creation UI depending on whether settings exist.
     """
 
-    def __init__(self, parent: ttk.Frame, controller):
+    def __init__(self, parent: ttk.Frame, controller: 'ParentWindow'):
         """
         Initialize the EntryFrame.
 

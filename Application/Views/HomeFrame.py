@@ -1,10 +1,14 @@
 import secrets
 import string
 from tkinter import ttk, Canvas, PhotoImage, simpledialog
+from typing import TYPE_CHECKING
 
 from Application.Utils.HelperFunctions import autofill, create_autofill, store_creds, check_entries, \
     encrypt_password, find_creds
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
+
+if TYPE_CHECKING:
+    from Application.Views.ParentWindow import ParentWindow
 
 MAIN_LOGO = '../Assets/logo.png'
 WIN_WIDTH = 720
@@ -21,9 +25,10 @@ class HomeFrame(ttk.Frame):
     hashed credentials securely in a JSON file.
     """
 
-    def __init__(self, parent: ttk.Frame, controller):
+    def __init__(self, parent: ttk.Frame,  controller: 'ParentWindow'):
         super().__init__(parent)
         self.controller = controller
+        self.controller.create_menu()
 
         style = ttk.Style()
         style.configure("Blue.TFrame", background="light blue")
