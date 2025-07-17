@@ -1,8 +1,11 @@
 import json
 import re
+from json import JSONDecodeError
 
 from cryptography.fernet import Fernet
 import bcrypt
+
+from Application.Utils.LoggingController import log_error_and_method
 
 SETTINGS_FILE = "../.Data/Settings.json"
 CRED_FILE = "../.Data/Creds.json"
@@ -61,7 +64,8 @@ def autofill() -> str | None:
         with open(file=SETTINGS_FILE, mode='r') as data_file:
             data = json.load(data_file)
             return data['settings']['autofill']
-    except KeyError:
+    except (FileNotFoundError, KeyError, JSONDecodeError) as error:
+        log_error_and_method(error)
         # ASSERT: Autofill hasn't been setup yet
         return None
 
@@ -83,7 +87,8 @@ def create_autofill(username: str) -> bool:
             json.dump(data, data_file, indent=4)
             return True
 
-    except FileNotFoundError:
+    except (FileNotFoundError, JSONDecodeError) as error:
+        log_error_and_method(error)
         return False
 
 
@@ -103,7 +108,8 @@ def store_creds(website: str, username: str, pwd: str) -> None:
         with open(file=CRED_FILE, mode='r') as data_file:
             data: dict = json.load(data_file)
 
-    except (FileNotFoundError, json.decoder.JSONDecodeError):
+    except (FileNotFoundError, JSONDecodeError) as error:
+        log_error_and_method(error)
         with open(file=CRED_FILE, mode='w') as _:
             data: dict = {}
 
@@ -130,7 +136,8 @@ def get_encryption_key() -> bytes:
         with open(key_path, "rb") as key_file:
             return key_file.read()
 
-    except FileNotFoundError:
+    except FileNotFoundError as error:
+        log_error_and_method(error)
         key: bytes = Fernet.generate_key()
         with open(key_path, "wb") as key_file:
             key_file.write(key)
@@ -191,5 +198,6 @@ def find_creds(site: str) -> dict[str, str] | None:
             creds["password"] = decrypt_password(creds["password"])
             return creds
 
-    except (FileNotFoundError, KeyError, json.decoder.JSONDecodeError):
+    except (FileNotFoundError, KeyError, JSONDecodeError) as error:
+        log_error_and_method(error)
         return None
