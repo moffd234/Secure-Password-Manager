@@ -1,6 +1,8 @@
+import logging
 import tkinter
 from tkinter import ttk
 
+from Application.Utils.LoggingController import setup_logging
 from Application.Views.EntryFrame import EntryFrame
 
 
@@ -8,6 +10,7 @@ class ParentWindow(tkinter.Tk):
 
     def __init__(self):
         super().__init__()
+        setup_logging()
         self.title("Password Manager!")
         self.geometry("720x480")
         self.resizable(False, False)
@@ -32,4 +35,5 @@ class ParentWindow(tkinter.Tk):
 
 if __name__ == "__main__":
     app: ParentWindow = ParentWindow()
+    logging.info("Application started")
     app.mainloop()
