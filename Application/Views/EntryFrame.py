@@ -63,8 +63,8 @@ class EntryFrame(ttk.Frame):
         Displays error if validation fails.
         """
         from HomeFrame import HomeFrame
-        password: str = self.password_entry.get()
-        conf_password: str = self.confirm_password_entry.get()
+        password: str = self.password_entry.get_real_value()
+        conf_password: str = self.confirm_password_entry.get_real_value()
         is_valid: bool = self.validate_passwords(password, conf_password)
 
         if is_valid:
@@ -82,7 +82,7 @@ class EntryFrame(ttk.Frame):
         If verified, redirects to the HomeFrame.
         """
         from HomeFrame import HomeFrame
-        pwd: str = self.password_entry.get()
+        pwd: str = self.password_entry.get_real_value()
 
         with open(file="../.Data/Settings.json", mode="r") as file:
             data: dict = json.load(file)

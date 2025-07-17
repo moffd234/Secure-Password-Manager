@@ -198,9 +198,9 @@ class HomeFrame(ttk.Frame):
         :return: None
         """
         self.clear_status_messages()
-        username: str = self.username_entry.get().strip()
-        password: str = self.password_entry.get().strip()
-        site: str = self.site_entry.get().strip()
+        username: str = self.username_entry.get_real_value().strip()
+        password: str = self.password_entry.get_real_value().strip()
+        site: str = self.site_entry.get_real_value().strip()
 
         encrypted_pwd: str = encrypt_password(password)
 
@@ -236,7 +236,7 @@ class HomeFrame(ttk.Frame):
         :return: None
         """
         self.clear_status_messages()
-        site: str = self.site_entry.get().strip()
+        site: str = self.site_entry.get_real_value().strip()
 
         creds: dict[str, str] | None = find_creds(site)
 
