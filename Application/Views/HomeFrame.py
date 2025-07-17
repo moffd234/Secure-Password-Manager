@@ -3,7 +3,7 @@ import string
 from tkinter import ttk, Canvas, PhotoImage, simpledialog
 
 from Application.Utils.HelperFunctions import autofill, create_autofill, store_creds, check_entries, \
-    encrypt_password
+    encrypt_password, find_creds
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
 
 MAIN_LOGO = '../Assets/logo.png'
@@ -49,7 +49,7 @@ class HomeFrame(ttk.Frame):
         self.site_entry.focus()
 
         # Buttons
-        self.search_button = ttk.Button(text="Search", width=15, command="")
+        self.search_button = ttk.Button(text="Search", width=15, command=self.search_for_site)
         self.autofill_button = ttk.Button(text="Autofill", width=15, command=self.handle_autofill)
         self.gen_button = ttk.Button(text="Generate", width=15, command=self.generate_password)
         self.add_button = ttk.Button(text="Add", width=42, command=self.add_creds)
@@ -206,3 +206,25 @@ class HomeFrame(ttk.Frame):
         self.site_entry.clear_field()
         self.username_entry.clear_field()
         self.password_entry.clear_field()
+
+    def search_for_site(self) -> None:
+        """
+        Searches for stored credentials matching the entered site name.
+
+        Retrieves the site name from the entry field, looks up corresponding credentials
+        using the `find_creds` helper function, and displays them in the username and password
+        fields if found. If no credentials are found, an error message is displayed.
+
+        :return: None
+        """
+        site: str = self.site_entry.get().strip()
+
+        creds: dict[str, str] | None = find_creds(site)
+
+        if not creds:
+            self.show_error(f"No credentials found for site {site}")
+            return None
+
+        self.username_entry.set_value(creds['username'])
+        self.password_entry.set_value(creds['password'])
+        return None

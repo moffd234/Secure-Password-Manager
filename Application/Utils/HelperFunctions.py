@@ -176,7 +176,7 @@ def decrypt_password(encrypted_pwd: str):
     return fernet.decrypt(encrypted_pwd.encode()).decode()
 
 
-def find_creds(site: str) -> dict | None:
+def find_creds(site: str) -> dict[str, str] | None:
     """
     Searches credentials file for credentials matching the given site then returns the credentials if found.
     Otherwise, returns None.
