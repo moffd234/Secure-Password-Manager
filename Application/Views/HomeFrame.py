@@ -168,6 +168,19 @@ class HomeFrame(ttk.Frame):
         self.success_label.place(relx=0.5, rely=0.5, anchor="center")
         self.success_label.lift()
 
+    def clear_status_messages(self):
+        """
+        Hides both error and success status labels from the UI.
+
+        This method removes any currently displayed feedback messages from the screen
+        by hiding the error and success labels.
+
+        :return: None
+        """
+
+        self.error_label.place_forget()
+        self.success_label.place_forget()
+
     def add_creds(self) -> None:
         """
         Collects and stores user credentials for a given website.
@@ -206,6 +219,7 @@ class HomeFrame(ttk.Frame):
         self.site_entry.clear_field()
         self.username_entry.clear_field()
         self.password_entry.clear_field()
+        self.clear_status_messages()
 
     def search_for_site(self) -> None:
         """
