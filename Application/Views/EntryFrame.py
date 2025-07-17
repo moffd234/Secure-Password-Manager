@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 from tkinter import ttk, PhotoImage, Canvas
 
@@ -69,6 +70,7 @@ class EntryFrame(ttk.Frame):
 
         if is_valid:
             self.create_settings(password)
+            logging.info("Transitioning to HomeFrame")
             self.controller.render_frame(HomeFrame)
             return None
 
@@ -88,6 +90,7 @@ class EntryFrame(ttk.Frame):
             data: dict = json.load(file)
             hashed_pwd: str = data["app_password"]["password"]
             if verify_password(password=pwd, hashed=hashed_pwd):
+                logging.info("Password verified. Transitioning to HomeFrame")
                 self.controller.render_frame(HomeFrame)
                 return None
 
@@ -127,3 +130,5 @@ class EntryFrame(ttk.Frame):
             data: dict = {'app_password': {"password": hashed_pass, }}
             json_str: str = json.dumps(data, indent=4)
             file.write(json_str)
+
+        logging.info("Settings file created")
