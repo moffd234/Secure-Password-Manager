@@ -4,6 +4,7 @@ from tkinter import ttk
 
 from Application.Utils.LoggingController import setup_logging
 from Application.Views.EntryFrame import EntryFrame
+from Application.Views.HomeFrame import HomeFrame
 from Application.Views.PasswordFrame import PasswordFrame
 
 
@@ -46,7 +47,7 @@ class ParentWindow(tkinter.Tk):
         account_menu.add_command(label="View Passwords", command=lambda: self.render_frame(PasswordFrame))
 
         account_menu.add_separator()
-        account_menu.add_command(label="Home", command=lambda: self.render_frame(EntryFrame))
+        account_menu.add_command(label="Home", command=lambda: self.render_frame(HomeFrame))
         account_menu.add_command(label="Exit", command=exit)
 
         self.configure(menu=self.menu_bar)
