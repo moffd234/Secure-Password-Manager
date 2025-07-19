@@ -29,6 +29,7 @@ class PasswordFrame(ttk.Frame):
         scrollbar.pack(side="right", fill="y")
 
         self.display_creds()
+        self.tree.bind("<Double-1>", self.copy_password)
 
     def display_creds(self) -> None:
         """
@@ -39,3 +40,15 @@ class PasswordFrame(ttk.Frame):
         if credentials:
             for site, creds in credentials.items():
                 self.tree.insert("", "end", values=(site, creds["username"], creds["password"]))
+
+    def copy_password(self, event) -> None:
+        selected_item = self.tree.focus()
+
+        if selected_item:
+            values = self.tree.item(selected_item, 'values')
+
+            if values:
+                password = values[2]
+                self.clipboard_clear()
+                self.clipboard_append(password)
+                self.update()
