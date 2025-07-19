@@ -3,8 +3,7 @@ import string
 from tkinter import ttk, Canvas, PhotoImage, simpledialog
 from typing import TYPE_CHECKING
 
-from Application.Utils.HelperFunctions import autofill, create_autofill, store_creds, check_entries, \
-    encrypt_password, find_creds
+from Application.Utils.HelperFunctions import *
 from Application.Utils.PlaceholderEntry import PlaceholderEntry
 
 if TYPE_CHECKING:
