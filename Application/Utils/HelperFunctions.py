@@ -201,3 +201,18 @@ def find_creds(site: str) -> dict[str, str] | None:
     except (FileNotFoundError, KeyError, JSONDecodeError) as error:
         log_error_and_method(error)
         return None
+
+
+def get_all_passwords() -> dict[str, dict[str, str]] | None:
+    try:
+        with open(CRED_FILE, mode='r') as data_file:
+            data: dict[str, dict[str, str]] = json.load(data_file)
+
+        for site in data:
+            data[site]["password"] = decrypt_password(data[site]["password"])
+
+        return data
+
+    except (FileNotFoundError, KeyError, JSONDecodeError) as error:
+        log_error_and_method(error)
+        return None
