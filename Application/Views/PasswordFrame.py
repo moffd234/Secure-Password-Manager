@@ -14,6 +14,9 @@ class PasswordFrame(ttk.Frame):
         self.controller = controller
 
         self.tree: ttk.Treeview = ttk.Treeview(self, columns=["site", "username", "password"], show="headings")
+        style = ttk.Style()
+        style.configure("Treeview", background="light blue", fieldbackground="light blue", foreground="black")
+
         self.tree.heading("site", text="Site")
         self.tree.heading("username", text="Username")
         self.tree.heading("password", text="Password")
