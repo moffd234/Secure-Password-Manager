@@ -48,6 +48,9 @@ class ParentWindow(tkinter.Tk):
         self.configure(menu=self.menu_bar)
 
     def transition_to_password_frame(self) -> None:
+        """
+        Transitions the current view to the PasswordFrame.
+        """
         self.render_frame(PasswordFrame)
 
 
