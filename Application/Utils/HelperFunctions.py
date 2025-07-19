@@ -204,6 +204,12 @@ def find_creds(site: str) -> dict[str, str] | None:
 
 
 def get_all_passwords() -> dict[str, dict[str, str]] | None:
+    """
+    Loads and decrypts all stored credentials from the credentials file.
+
+    :return: A dictionary where each key is a site name and the value is a dictionary
+             containing the username and decrypted password. Returns None if an error occurs.
+    """
     try:
         with open(CRED_FILE, mode='r') as data_file:
             data: dict[str, dict[str, str]] = json.load(data_file)
