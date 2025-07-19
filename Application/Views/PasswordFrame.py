@@ -45,6 +45,12 @@ class PasswordFrame(ttk.Frame):
                 self.tree.insert("", "end", values=(site, creds["username"], creds["password"]))
 
     def copy_password(self, event) -> None:
+        """
+        Copies the password of the selected credential row to the system clipboard.
+
+        Triggered by a double-click event on the Treeview. Retrieves the selected row's password,
+        clears the clipboard, and appends the password for quick copying.
+        """
         selected_item = self.tree.focus()
 
         if selected_item:
