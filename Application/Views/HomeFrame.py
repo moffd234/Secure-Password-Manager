@@ -35,7 +35,7 @@ class HomeFrame(ttk.Frame):
 
         # Canvas
         self.canvas_image = PhotoImage(file=MAIN_LOGO)
-        self.canvas = Canvas(width=WIN_WIDTH / 2, height=WIN_HEIGHT / 2, bg='light blue', highlightthickness=0)
+        self.canvas = Canvas(self, width=WIN_WIDTH / 2, height=WIN_HEIGHT / 2, bg='light blue', highlightthickness=0)
         self.canvas.create_image(180, 120, image=self.canvas_image)
 
         # Labels
@@ -47,16 +47,16 @@ class HomeFrame(ttk.Frame):
         self.success_label: ttk.Label = ttk.Label(self, background="light blue", foreground='green')
 
         # Entries
-        self.site_entry = PlaceholderEntry(placeholder="Enter site name", width=50, bg="light green", font=FONT)
-        self.username_entry = PlaceholderEntry(placeholder="Enter username", width=50, bg="light green", font=FONT)
-        self.password_entry = PlaceholderEntry(placeholder="Enter Password", width=50, bg="light green", font=FONT)
+        self.site_entry = PlaceholderEntry(self, placeholder="Enter site name", width=50, bg="light green", font=FONT)
+        self.username_entry = PlaceholderEntry(self, placeholder="Enter username", width=50, bg="light green", font=FONT)
+        self.password_entry = PlaceholderEntry(self, placeholder="Enter Password", width=50, bg="light green", font=FONT)
         self.site_entry.focus()
 
         # Buttons
-        self.search_button = ttk.Button(text="Search", width=15, command=self.search_for_site)
-        self.autofill_button = ttk.Button(text="Autofill", width=15, command=self.handle_autofill)
-        self.gen_button = ttk.Button(text="Generate", width=15, command=self.generate_password)
-        self.add_button = ttk.Button(text="Add", width=42, command=self.add_creds)
+        self.search_button = ttk.Button(self, text="Search", width=15, command=self.search_for_site)
+        self.autofill_button = ttk.Button(self, text="Autofill", width=15, command=self.handle_autofill)
+        self.gen_button = ttk.Button(self, text="Generate", width=15, command=self.generate_password)
+        self.add_button = ttk.Button(self, text="Add", width=42, command=self.add_creds)
 
         self.place_elements()
 
