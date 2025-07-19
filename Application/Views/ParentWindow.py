@@ -43,19 +43,13 @@ class ParentWindow(tkinter.Tk):
         self.menu_bar.add_cascade(label="Account", menu=account_menu)
         account_menu.add_command(label="Reset App Password", command="")
         account_menu.add_command(label="Change Autofill", command="")
-        account_menu.add_command(label="View Passwords", command=self.transition_to_password_frame)
+        account_menu.add_command(label="View Passwords", command=lambda: self.render_frame(PasswordFrame))
 
         account_menu.add_separator()
         account_menu.add_command(label="Home", command=lambda: self.render_frame(EntryFrame))
         account_menu.add_command(label="Exit", command=exit)
 
         self.configure(menu=self.menu_bar)
-
-    def transition_to_password_frame(self) -> None:
-        """
-        Transitions the current view to the PasswordFrame.
-        """
-        self.render_frame(PasswordFrame)
 
 
 if __name__ == "__main__":
