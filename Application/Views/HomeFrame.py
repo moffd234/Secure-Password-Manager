@@ -27,11 +27,13 @@ class HomeFrame(ttk.Frame):
     def __init__(self, parent: ttk.Frame,  controller: 'ParentWindow'):
         super().__init__(parent)
         self.controller = controller
-        self.controller.create_menu()
 
         style = ttk.Style()
         style.configure("Blue.TFrame", background="light blue")
         self.configure(style="Blue.TFrame")
+
+        if not self.controller.cget("menu"):
+            self.controller.create_menu()
 
         # Canvas
         self.canvas_image = PhotoImage(file=MAIN_LOGO)
