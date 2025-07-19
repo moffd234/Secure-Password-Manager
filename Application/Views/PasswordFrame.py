@@ -31,6 +31,9 @@ class PasswordFrame(ttk.Frame):
         self.display_creds()
 
     def display_creds(self) -> None:
+        """
+        Populates the Treeview with decrypted credentials from the JSON file.
+        """
         credentials: dict[str, dict[str, str]] = get_all_passwords()
 
         if credentials:
