@@ -45,6 +45,10 @@ class ParentWindow(tkinter.Tk):
         account_menu.add_command(label="Change Autofill", command="")
         account_menu.add_command(label="View Passwords", command=self.transition_to_password_frame)
 
+        account_menu.add_separator()
+        account_menu.add_command(label="Home", command=lambda: self.render_frame(EntryFrame))
+        account_menu.add_command(label="Exit", command=exit)
+
         self.configure(menu=self.menu_bar)
 
     def transition_to_password_frame(self) -> None:
