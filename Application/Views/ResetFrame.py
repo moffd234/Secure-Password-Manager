@@ -1,12 +1,9 @@
-from tkinter import ttk, PhotoImage, Canvas
+from tkinter import ttk
 from typing import TYPE_CHECKING
-
-from Application.Utils.PlaceholderEntry import PlaceholderEntry
 
 if TYPE_CHECKING:
     from Application.Views.ParentWindow import ParentWindow
 
-HOME_LOGO = '../Assets/Home Logo.png'
 
 class ResetFrame(ttk.Frame):
     def __init__(self, parent: ttk.Frame, controller: 'ParentWindow', *args):
