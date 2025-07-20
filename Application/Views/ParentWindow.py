@@ -22,16 +22,17 @@ class ParentWindow(tkinter.Tk):
         self.menu_bar: tkinter.Menu = tkinter.Menu()
         self.render_frame(EntryFrame)
 
-    def render_frame(self, new_frame) -> None:
+    def render_frame(self, new_frame, *args) -> None:
         """
         Destroys previous frame and renders new frame.
-        :param new_frame: A new Frame object.
+        :param new_frame: A class reference to the new ttk.Frame to render
+        :param args: Optional arguments passed to the new frame's constructor.
         :return: None
         """
         for frame in self.container.winfo_children():
             frame.destroy()
 
-        frame: ttk.Frame = new_frame(self.container, self)
+        frame: ttk.Frame = new_frame(self.container, self, *args)
 
         frame.pack(fill="both", expand=True)
 
