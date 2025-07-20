@@ -6,6 +6,7 @@ from Application.Utils.LoggingController import setup_logging
 from Application.Views.EntryFrame import EntryFrame
 from Application.Views.HomeFrame import HomeFrame
 from Application.Views.PasswordFrame import PasswordFrame
+from Application.Views.ResetFrame import ResetFrame
 
 
 class ParentWindow(tkinter.Tk):
@@ -43,7 +44,7 @@ class ParentWindow(tkinter.Tk):
         """
         account_menu: tkinter.Menu = tkinter.Menu(self.menu_bar, tearoff=False)
         self.menu_bar.add_cascade(label="Account", menu=account_menu)
-        account_menu.add_command(label="Reset App Password", command="")
+        account_menu.add_command(label="Reset App Password", command=lambda: self.render_frame(ResetFrame, "password"))
         account_menu.add_command(label="Change Autofill", command="")
         account_menu.add_command(label="View Passwords", command=lambda: self.render_frame(PasswordFrame))
 
