@@ -248,6 +248,15 @@ def get_download_path() -> Path:
 
 
 def export_passwords() -> bool:
+    """
+    Exports all stored credentials in unencrypted form to a text file in the user's Downloads folder.
+
+    Retrieves all stored credentials, formats them as indented JSON, and writes them to a file named
+    'passwords.txt' in the user's default Downloads directory. If credentials cannot be retrieved or the file
+    cannot be written, logs the error and returns False.
+
+    :return: True if export was successful, False otherwise.
+    """
     download_path: Path = Path(os.path.join(os.path.expanduser('~'), 'Downloads'))
     creds: dict[str, dict[str, str]] = get_all_passwords()
 
