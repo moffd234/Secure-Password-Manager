@@ -2,7 +2,7 @@ import logging
 import tkinter
 from tkinter import ttk, messagebox
 
-from Application.Utils.HelperFunctions import get_all_passwords, export_passwords
+from Application.Utils.HelperFunctions import export_passwords
 from Application.Utils.LoggingController import setup_logging
 from Application.Views.EntryFrame import EntryFrame
 from Application.Views.HomeFrame import HomeFrame
@@ -64,6 +64,16 @@ class ParentWindow(tkinter.Tk):
 
     @staticmethod
     def export_passwords() -> None:
+        """
+        Prompts the user for confirmation to export all stored passwords in unencrypted form.
+
+        If the user consents, attempts to export the passwords to a file in the user's Downloads directory.
+        Displays a success message if the export completes successfully, or an error message if it fails.
+
+        The exported passwords file should be handled securely and deleted promptly to protect sensitive data.
+
+        :return: None
+        """
         answer: str = messagebox.askquestion("Export Passwords",
                                              "Doing this will export your passwords in unencrypted form."
                                              " Please delete the file as soon as you are done."
