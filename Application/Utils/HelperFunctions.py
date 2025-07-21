@@ -233,7 +233,7 @@ def get_download_path() -> Path:
     :return: The default downloads path for linux or windows if found. Else returns Home.
     """
 
-    user_downloads: Path = Path(os.path.join(os.path.expanduser('~'), 'Downloads'))
+    user_downloads: Path = Path.home() / "Downloads"
 
     if os.name == 'nt':
         import winreg
@@ -245,3 +245,21 @@ def get_download_path() -> Path:
         return Path(location)
 
     return user_downloads if user_downloads.exists() else Path.home()
+
+
+def export_passwords() -> bool:
+    download_path: Path = Path(os.path.join(os.path.expanduser('~'), 'Downloads'))
+    creds: dict[str, dict[str, str]] = get_all_passwords()
+
+    if creds is None:
+        return False
+
+    try:
+        with open(download_path / "passwords.txt", "w") as file:
+            file.write(json.dumps(creds, indent=4))
+
+    except (FileNotFoundError, KeyError, JSONDecodeError) as error:
+        log_error_and_method(error)
+        return False
+
+    return True
