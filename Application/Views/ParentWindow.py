@@ -1,11 +1,8 @@
-import json
 import logging
-import os
 import tkinter
-from pathlib import Path
 from tkinter import ttk, messagebox
 
-from Application.Utils.HelperFunctions import get_all_passwords
+from Application.Utils.HelperFunctions import get_all_passwords, export_passwords
 from Application.Utils.LoggingController import setup_logging
 from Application.Views.EntryFrame import EntryFrame
 from Application.Views.HomeFrame import HomeFrame
@@ -71,8 +68,13 @@ class ParentWindow(tkinter.Tk):
                                              "Doing this will export your passwords in unencrypted form."
                                              " Please delete the file as soon as you are done."
                                              " Do you wish to continue?")
+
         if answer == "yes":
-            pass
+            was_successful: bool = export_passwords()
+            if not was_successful:
+                messagebox.showerror("Export Failed", "Failed to export passwords.")
+            else:
+                messagebox.showinfo("Export Successful", "Successfully exported passwords.")
 
         return None
 
