@@ -1,6 +1,8 @@
 import json
+import os
 import re
 from json import JSONDecodeError
+from pathlib import Path
 
 from cryptography.fernet import Fernet
 import bcrypt
@@ -222,3 +224,24 @@ def get_all_passwords() -> dict[str, dict[str, str]] | None:
     except (FileNotFoundError, KeyError, JSONDecodeError) as error:
         log_error_and_method(error)
         return None
+
+def get_download_path() -> Path:
+    """
+    Returns the default downloads path for linux or windows if found. Else returns Home.
+
+    modified from answer found at https://stackoverflow.com/a/48706260
+    :return: The default downloads path for linux or windows if found. Else returns Home.
+    """
+
+    user_downloads: Path = Path(os.path.join(os.path.expanduser('~'), 'Downloads'))
+
+    if os.name == 'nt':
+        import winreg
+        sub_key = r'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders'
+        downloads_guid = '{374DE290-123F-4565-9164-39C4925E467B}'
+
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, sub_key) as key:
+            location = winreg.QueryValueEx(key, downloads_guid)[0]
+        return Path(location)
+
+    return user_downloads if user_downloads.exists() else Path.home()
