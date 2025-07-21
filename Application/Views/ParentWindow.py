@@ -1,7 +1,11 @@
+import json
 import logging
+import os
 import tkinter
-from tkinter import ttk
+from pathlib import Path
+from tkinter import ttk, messagebox
 
+from Application.Utils.HelperFunctions import get_all_passwords
 from Application.Utils.LoggingController import setup_logging
 from Application.Views.EntryFrame import EntryFrame
 from Application.Views.HomeFrame import HomeFrame
@@ -60,6 +64,17 @@ class ParentWindow(tkinter.Tk):
         settings_menu.add_command(label="Theme", command="")
 
         self.configure(menu=self.menu_bar)
+
+    @staticmethod
+    def export_passwords() -> None:
+        answer: str = messagebox.askquestion("Export Passwords",
+                                             "Doing this will export your passwords in unencrypted form."
+                                             " Please delete the file as soon as you are done."
+                                             " Do you wish to continue?")
+        if answer == "yes":
+            pass
+
+        return None
 
 
 if __name__ == "__main__":
