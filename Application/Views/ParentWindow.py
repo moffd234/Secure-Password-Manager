@@ -48,6 +48,7 @@ class ParentWindow(tkinter.Tk):
         account_menu.add_command(label="Reset App Password", command=lambda: self.render_frame(ResetFrame, "password"))
         account_menu.add_command(label="Change Autofill", command=lambda: self.render_frame(ResetFrame, "autofill"))
         account_menu.add_command(label="View Passwords", command=lambda: self.render_frame(PasswordFrame))
+        account_menu.add_command(label="Export Passwords", command=lambda: "export_passwords")
 
         account_menu.add_separator()
         account_menu.add_command(label="Home", command=lambda: self.render_frame(HomeFrame))
