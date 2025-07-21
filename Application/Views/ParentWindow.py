@@ -42,6 +42,7 @@ class ParentWindow(tkinter.Tk):
         Creates the top menu bar for easier application navigation.
         :return: None
         """
+        # Account
         account_menu: tkinter.Menu = tkinter.Menu(self.menu_bar, tearoff=False)
         self.menu_bar.add_cascade(label="Account", menu=account_menu)
         account_menu.add_command(label="Reset App Password", command=lambda: self.render_frame(ResetFrame, "password"))
@@ -51,6 +52,11 @@ class ParentWindow(tkinter.Tk):
         account_menu.add_separator()
         account_menu.add_command(label="Home", command=lambda: self.render_frame(HomeFrame))
         account_menu.add_command(label="Exit", command=exit)
+
+        # Settings
+        settings_menu: tkinter.Menu = tkinter.Menu(self.menu_bar, tearoff=False)
+        self.menu_bar.add_cascade(label="Settings", menu=settings_menu)
+        settings_menu.add_command(label="Theme", command="")
 
         self.configure(menu=self.menu_bar)
 
