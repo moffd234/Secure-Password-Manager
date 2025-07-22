@@ -1,19 +1,21 @@
-import json
 import os.path
 import unittest
-from pathlib import Path
 from unittest.mock import patch, mock_open
 
-from Application.Utils.HelperFunctions import is_password_valid, hash_password, verify_password, autofill, \
-    export_passwords, get_download_path, get_unique_filename
+from Application.Utils.HelperFunctions import *
 
 FUNCTIONS_PATH = "Application.Utils.HelperFunctions"
 
 
 class TestHelperFunctions(unittest.TestCase):
 
-    def __init__(self):
-        super().__init__()
+    def assert_open_error(self, mock_get_passwords, mock_open_file, mock_logging, actual):
+        mock_get_passwords.assert_called_once()
+        mock_open_file.assert_called_once()
+        mock_logging.assert_called_once()
+        self.assertFalse(actual)
+
+    def setUp(self):
         download_path: Path = Path(os.path.join(os.path.expanduser('~'), 'Downloads'))
         self.export_file_path = download_path / get_unique_filename(download_path, "passwords")
 
