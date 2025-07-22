@@ -1,6 +1,7 @@
 import json
 import os
 import re
+from datetime import datetime
 from json import JSONDecodeError
 from pathlib import Path
 
@@ -225,6 +226,23 @@ def get_all_passwords() -> dict[str, dict[str, str]] | None:
         log_error_and_method(error)
         return None
 
+
+def get_unique_filename(base_dir: Path, base_name: str) -> Path:
+    """
+    Generates a unique filename by appending a timestamp to the base name.
+
+    The timestamp is formatted as MMDDYYYY_HHMMSS to ensure uniqueness down to the second.
+    The resulting filename will have a `.txt` extension and be located within the specified base directory.
+
+    :param base_dir: The directory path where the file will be located.
+    :param base_name: The base name for the file, without extension or timestamp.
+    :return: A Path object representing the full path to the uniquely named file.
+    """
+    timestamp = datetime.now().strftime("%m%d%Y_%H%M%S")
+    filename = f"{base_name}_{timestamp}.txt"
+    return base_dir / filename
+
+
 def get_download_path() -> Path:
     """
     Returns the default downloads path for linux or windows if found. Else returns Home.
@@ -258,13 +276,14 @@ def export_passwords() -> bool:
     :return: True if export was successful, False otherwise.
     """
     download_path: Path = Path(os.path.join(os.path.expanduser('~'), 'Downloads'))
+    file_path = get_unique_filename(download_path, "passwords")
     creds: dict[str, dict[str, str]] = get_all_passwords()
 
     if creds is None:
         return False
 
     try:
-        with open(download_path / "passwords.txt", "w") as file:
+        with open(download_path / file_path, "w") as file:
             file.write(json.dumps(creds, indent=4))
 
     except (FileNotFoundError, KeyError, JSONDecodeError) as error:
