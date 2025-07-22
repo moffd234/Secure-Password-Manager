@@ -1,11 +1,21 @@
 import json
+import os.path
 import unittest
+from pathlib import Path
 from unittest.mock import patch, mock_open
 
-from Application.Utils.HelperFunctions import is_password_valid, hash_password, verify_password, autofill
+from Application.Utils.HelperFunctions import is_password_valid, hash_password, verify_password, autofill, \
+    export_passwords, get_download_path, get_unique_filename
+
+FUNCTIONS_PATH = "Application.Utils.HelperFunctions"
 
 
 class TestHelperFunctions(unittest.TestCase):
+
+    def __init__(self):
+        super().__init__()
+        download_path: Path = Path(os.path.join(os.path.expanduser('~'), 'Downloads'))
+        self.export_file_path = download_path / get_unique_filename(download_path, "passwords")
 
     def test_is_password_valid_true(self):
         test_password: str = "validPassword123!"
