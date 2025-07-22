@@ -143,6 +143,40 @@ class TestHelperFunctions(unittest.TestCase):
         mock_file.assert_called_once()
         self.assertIsNone(result)
 
+    @patch(f"{FUNCTIONS_PATH}.get_all_passwords", return_value=None)
+    def test_export_passwords_none_creds(self, mock_get_passwords):
+
+        actual: bool = export_passwords()
+        does_file_exists: bool = os.path.exists(self.export_file_path)
+
+        mock_get_passwords.assert_called_once()
+        self.assertFalse(actual)
+        self.assertFalse(does_file_exists)
+
+    @patch(f"{FUNCTIONS_PATH}.get_all_passwords", return_value={})
+    @patch("builtins.open", side_effect=FileNotFoundError)
+    @patch(f"{FUNCTIONS_PATH}.log_error_and_method")
+    def test_export_passwords_file_not_found(self, mock_logging, mock_open_file, mock_get_passwords):
+        actual: bool = export_passwords()
+
+        self.assert_open_error(mock_get_passwords, mock_open_file, mock_logging, actual)
+
+    @patch(f"{FUNCTIONS_PATH}.get_all_passwords", return_value={})
+    @patch("builtins.open", side_effect=KeyError)
+    @patch(f"{FUNCTIONS_PATH}.log_error_and_method")
+    def test_export_passwords_key_error(self, mock_logging, mock_open_file, mock_get_passwords):
+        actual: bool = export_passwords()
+
+        self.assert_open_error(mock_get_passwords, mock_open_file, mock_logging, actual)
+
+    @patch(f"{FUNCTIONS_PATH}.get_all_passwords", return_value={})
+    @patch("builtins.open", side_effect=JSONDecodeError("Expecting", "doc", 0))
+    @patch(f"{FUNCTIONS_PATH}.log_error_and_method")
+    def test_export_passwords_json_error(self, mock_logging, mock_open_file, mock_get_passwords):
+        actual: bool = export_passwords()
+
+        self.assert_open_error(mock_get_passwords, mock_open_file, mock_logging, actual)
+
     def tearDown(self):
 
         if os.path.exists(self.export_file_path):
