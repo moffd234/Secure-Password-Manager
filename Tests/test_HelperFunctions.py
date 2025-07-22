@@ -140,3 +140,8 @@ class TestHelperFunctions(unittest.TestCase):
         result = autofill()
         mock_file.assert_called_once()
         self.assertIsNone(result)
+
+    def tearDown(self):
+
+        if os.path.exists(self.export_file_path):
+            os.remove(self.export_file_path)
