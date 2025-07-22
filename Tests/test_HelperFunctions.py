@@ -178,12 +178,10 @@ class TestHelperFunctions(unittest.TestCase):
         self.assert_open_error(mock_get_passwords, mock_open_file, mock_logging, actual)
 
     @patch(f"{FUNCTIONS_PATH}.get_all_passwords", return_value={"Facebook": {"Password": "password"}})
-    @patch("builtins.open", new_callable=mock_open())
-    def test_export_passwords_successful(self, mock_open_file, mock_get_passwords):
+    def test_export_passwords_successful(self, mock_get_passwords):
         actual: bool = export_passwords()
         was_file_created: bool = os.path.exists(self.export_file_path)
 
-        mock_open_file.assert_called_once()
         mock_get_passwords.assert_called_once()
         self.assertTrue(actual)
         self.assertTrue(was_file_created)
